@@ -1,3 +1,100 @@
 สิ่งที่เรียนวันนี้
-
+- fetch function
+- Asynchronus vs Synchronous
+- fetch fucntion
+- vite
+- rest api
 ____________________________ Lecture ____________________________
+Asynchronus 🆚 Synchronous
+
+⏺️ Synchronous - ใช้เวลาในการทำงาน
+└── ทำทีละงาน — งานถัดไปจะเริ่มได้ เมื่อ งานก่อนหน้าเสร็จแล้วเท่านั้น เหมือนต่อคิวรอทีละคน 
+
+⏺️ Asynchronous
+└── สามารถ สั่งให้ทำงานไว้ก่อน แล้วไปทำอย่างอื่นต่อ ได้โดยไม่ต้องรอให้เสร็จ เมื่อเสร็จแล้วค่อย “แจ้งกลับ” ผ่าน callback / promise / async-await
+เมื่อต้องทำงานกับ Asyn function เราต้องมีวิธี handle มัน ถ้าต้องรอก็เขียนโปรแกรมให้รอ ถ้าไม่รอก็ไม่ต้องเขียนให้รอ
+    └──setTimeout - เป็น function ที่เราเอาไว้ delay เมื่อเวลาครบตามที่เรากำหนดไว้เป็น ms แล้วมันจะมาทำ callback function 
+        !! ทุกครั้งที่เราเรียก asyn ให้ระวังผลลัพธ์ที่ได้เสมอว่ามันจะกระทบกับโค้ดอื่นไหม ถ้ามีเราต้องหาวิธีจัดการเอง
+
+*Promises 
+└── ชื่อ class/object ที่เป็น asyn
+        I promise to do this whenever that is true. If it isn't true, then I won’t.
+        เดี๋ยวส่งงานให้เมื่อเสร็จนะ ถ้าไม่เสร็จก็จะบอกว่าไม่ทำให้
+└── function ที่ให้ผลลัพธ์เป็น promise จะให้ผลลัพธ์เป็น pending(กำลังทำอยู่) เมื่อมันทำงานเสร็จ จะได้เป็น pending → fulfilled => Resolved promise (ส่งงานสำเร็จ)
+                                                                                            ↘ rejected => Rejected promise (ไม่ทำแล้ว)
+
+! ถ้าเราไม่จัดการกับผลลัพธ์จากการเรียก function ที่ retrun promise 
+    └── จะได้ pending ถ้ามีผลกับคำสั่งบรรทัดถัดไปต้อง handle
+
+! วิธีจัดการกับ promise ที่ return จาก asyn function มี 2 วิธี   
+1️⃣ .then().catch                       
+.then() - ใช้สำหรับจัดการ ผลลัพธ์ที่สำเร็จ (fulfilled / resolved) ใช้เมื่ออยากทำอะไรต่อหลัง Promise สำเร็จ
+    └── จะรอจน Promise ถูก resolve
+    └── ค่าใน .then() = สิ่งที่ resolve(value) ส่งมา
+    └── ถ้ามีหลาย .then() เรียงกัน การทำงานจะเรียงลำดับจากบนลงล่าง
+
+asyncFunction()
+.then(result => {
+    console.log("สำเร็จ:", result)
+  })
+
+.catch() - ใช้สำหรับจัดการ ข้อผิดพลาด (rejected)
+    └── จะทำงานเมื่อ Promise ถูก reject
+    └── error ใน .catch() คือค่าที่มาจาก reject(error)
+    └── ถ้า .then() ใด ๆ ข้างบน throw error ก็จะกระโดดลงมา .catch() ด้วย
+
+asyncFunction()
+  .catch(error => {
+    console.log("เกิดข้อผิดพลาด:", error)
+  })
+
+2️⃣ async - await (❗️ถ้าเราใช้ await คำสั่งมันต้องอยู่ใต้ async เท่านั้น สำคัญมาก )
+    └── ใช้ร่วมกับ try() catch() ไว้จัดการ error
+async - fucntion ที่ return promise เป็น aysnc แน่นอน ไม่ว่า return อะไร จะถูกแปลงเป็น Promise.resolve(value) โดยอัตโนมัติ
+await - บอกให้รอคำสั่งนี้รันให้เสร็จ จะไม่ทำอะไรทั้งนั้น จะใช้เวลาเท่าไหร่ก็ต้องรอ ถ้าจะทำไรต่อมาใส่ไว้หลัง await
+
+
+⏺️ fetch(resource [, init]) => return promise ที่เป็น respon object ที่มาจาก backend
+fetch resolve เสมอถ้า server ตอบ ไม่ว่าจะ 200 หรือ 404
+ถ้า fetch(url) = get
+
+package.json เอาไว้เก็บ depenency ของโปรเจค 
+
+⏺️ Rest API - รูปแบบมาตรฐานสำหรับการสื่อสารระหว่างเครื่อง (client ↔ server) ผ่าน HTTP protocol โดยใช้หลักการแบบ uniform คือมีรูปแบบคงที่ ชัดเจน และเข้าใจตรงกัน
+
+JSON 🆚 JavaScript Object
+1️⃣ JSON (JavaScript Object Notation) - รูปแบบข้อมูล (data format) ที่ใช้แลกเปลี่ยนข้อมูลระหว่างเครื่อง เช่น REST API
+└── ต้องเป็น string เสมอ ❗
+└── ต้องใช้ double quotes (" ") เท่านั้น ❗
+└── ไม่มี function
+└── ไม่มี undefined
+└── ไม่มี comment
+└── key ต้องเป็น string หุ้มด้วย " 
+    Value types
+    └── string, number, boolean, null, object, array
+
+2️⃣ JavaScript Object - object จริง ๆ ใน JavaScript ใช้งานตอนเขียนโค้ด
+└── key ไม่ต้องใส่เครื่องหมาย "
+└── value เป็นอะไรก็ได้: function, array, object, boolean, number, undefined
+└── ใช้ single quotes ' ' ได้
+└── เป็น object จริง ไม่ใช่ string
+
+Rest API มี 3 elements
+1️⃣ REquest - สิ่งที่ client ส่งไป
+    └── ขอข้อมูล / ส่งข้อมูลให้ server
+2️⃣ REsponse - สิ่งที่ server ส่งกลับ
+    └── ส่งผลลัพธ์หรือ error
+3️⃣ Headers - metadata
+    └── ช่วยอธิบายข้อมูล เช่น content-type
+
+.env
+- ตัวแปรมีสองประเภท 
+    └── ถ้าขึ้นต้นด้วย VITE เช่น VITE_SOME_KEY= 123 เวลาอ่านด้วย js จะได้ค่า 123
+    └── ถ้าไม่ได้ขึ้นต้นด้วย VITE เช่น DB_PASSWORD=footbar เวลาอ่านด้วย js จะได้ undefined แปรว่าต้องการเก็บค่าที่มัน sensitive
+
+.env มีสองแบบ : 
+.env 
+    └── ตัวแปรจะถูกใช้ตอน run dev
+.env.[mode] 
+    └── .evn.production มันจะเรียกใช้ตอน run build 
+
