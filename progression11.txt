@@ -1,8 +1,21 @@
 Week11
+- ไม่มีเรียน
 
 Week12
+- fetch function
+- Asynchronus vs Synchronous
+- fetch fucntion
+- vite
+- rest api
+- พอเข้าใจแรกๆ หลังๆเริ่มมึนแต่พยายามให้เพื่อนช่วยและถาม AI
 
 Week13
+- เขียนโค้ดเยอะมากกกกก มึนสุดๆแต่พอไหวอยู่ เรียนต่อจากวีคที่แล้ว
+- Delete 
+- Post
+- PUT
+- .env.production เพิ่มเติม
+- เน้นฝึกทำโค้ดเกือบตายเกือบสิ้น
 
 Week14
 
