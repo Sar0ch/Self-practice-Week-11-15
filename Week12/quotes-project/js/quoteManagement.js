@@ -1,5 +1,5 @@
 //CRUD on quotes
-import { getItems } from "./myLib/fetchUils.js"
+import { getItems } from "./myLib/fetchUtils.js"
 
 //GET Quotes
 async function loadQuotes() {
