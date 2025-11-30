@@ -18,6 +18,9 @@ Week13
 - เน้นฝึกทำโค้ดเกือบตายเกือบสิ้น
 
 Week14
+- JSDateTime ช่วยได้เยอะมากเพราะกำลังจะตายกับ Integrated Project
+- dialog
+- อาจารย์เดินเช็คว่า Integrated Project ทำไปถึงไหนแล้ว
 
 Week15
 
