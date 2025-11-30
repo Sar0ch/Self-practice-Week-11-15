@@ -1,5 +1,5 @@
 Week11
-- ไม่มีเรียน
+- ไม่มีเรียน แต่ได้ทำ infra ใน Integrated Project
 
 Week12
 - fetch function
