@@ -1,28 +1,25 @@
 //ฝึกทำด้วย Integrated Project รอบนี้ทำส่วนรับหน้าที่ทำในส่วนของ Backend โค้ดที่ได้ฝึกของ Frontend เลยมีน้อย
-// Load Declared Plan
-async function loadDeclaredPlan(statusMsg, declareBtn) {
-
-  const studentId = keycloakInstance.tokenParsed?.preferred_username;
-
+// Load Study Plans
+async function loadStudyPlans(selectElement) {
   try {
-    const response = await fetch(`${BASE_URL}/students/${studentId}/declared-plan`);
+    const response = await fetch(`${BASE_URL}/study-plans`);
 
-    if (response.status === 404) {
-      statusMsg.textContent = "Declaration Status: Not Declared";
-      declareBtn.style.display = "inline-block";
-      declareBtn.disabled = true;
-      return;
-    }
-    const data = await response.json();
-    declareBtn.style.display = "none";
+    const plans = await response.json();
 
-    const updatedAt = new Date(data.updatedAt);
-    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const formatted = updatedAt.toLocaleString("en-GB", { timeZone: userTimeZone });
+    selectElement.innerHTML = '<option value="">-- Select Major --</option>';
 
-    statusMsg.textContent = `Declaration Status: Declared ${data.planCode} - ${data.planNameEng} on ${formatted} (${userTimeZone})`;
+    plans.forEach(plan => {
+      const option = document.createElement("option");
+      option.value = plan.id;
+      option.textContent = `${plan.planCode} - ${plan.nameEng}`;
+      option.className = "ecors-plan-row"
+      selectElement.appendChild(option);
+    });
+
+    console.log("✅ Study plans loaded");
 
   } catch (error) {
-    console.error(" Error loading declared plan:", error);
+    console.error("❌ Error loading study plans:", error);
   }
+
 }
